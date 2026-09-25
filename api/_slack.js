@@ -8,17 +8,22 @@ async function notifySlack(text) {
     console.warn('[slack] SLACK_WEBHOOK_URL is not set — skipping notify. Would have posted:', text);
     return { sent: false, reason: 'SLACK_WEBHOOK_URL not configured' };
   }
-  const resp = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text }),
-  });
-  if (!resp.ok) {
-    const body = await resp.text().catch(() => '');
-    console.error('[slack] webhook post failed', resp.status, body);
-    return { sent: false, reason: `Slack responded ${resp.status}` };
+  try {
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
+    });
+    if (!resp.ok) {
+      const body = await resp.text().catch(() => '');
+      console.error('[slack] webhook post failed', resp.status, body);
+      return { sent: false, reason: `Slack responded ${resp.status}` };
+    }
+    return { sent: true };
+  } catch (err) {
+    console.error('[slack] post threw', err.message);
+    return { sent: false, reason: err.message };
   }
-  return { sent: true };
 }
 
 module.exports = { notifySlack };

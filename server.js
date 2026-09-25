@@ -3,8 +3,25 @@
 // - runs the /api/*.js files as plain Express handlers
 //
 // Usage: npm install && npm run dev   →  http://localhost:3000
+const fs = require('fs');
 const path = require('path');
 const express = require('express');
+
+// Load .env (RESEND_API_KEY, AUTH_TOKEN_SECRET, SLACK_WEBHOOK_URL, ...) if present.
+// No extra dependency needed — this is a minimal KEY=VALUE parser. .env is git-ignored;
+// on Vercel these same names are set as real Environment Variables instead.
+(function loadDotEnv() {
+  const envPath = path.join(__dirname, '.env');
+  if (!fs.existsSync(envPath)) return;
+  for (const line of fs.readFileSync(envPath, 'utf8').split('\n')) {
+    const m = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
+    if (!m || line.trim().startsWith('#')) continue;
+    const key = m[1];
+    let val = (m[2] || '').trim();
+    if (val.startsWith('"') && val.endsWith('"')) val = val.slice(1, -1);
+    if (!(key in process.env)) process.env[key] = val;
+  }
+})();
 
 const app = express();
 app.use(express.json());

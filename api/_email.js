@@ -10,17 +10,24 @@ async function sendEmail({ to, subject, html, replyTo }) {
     return { sent: false, reason: 'RESEND_API_KEY not configured' };
   }
   const from = process.env.MAIL_FROM || 'Truffl <onboarding@resend.dev>';
-  const resp = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from, to, subject, html, ...(replyTo ? { reply_to: replyTo } : {}) }),
-  });
-  if (!resp.ok) {
-    const body = await resp.text().catch(() => '');
-    console.error('[email] Resend send failed', resp.status, body);
-    return { sent: false, reason: `Resend responded ${resp.status}` };
+  try {
+    const resp = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from, to, subject, html, ...(replyTo ? { reply_to: replyTo } : {}) }),
+    });
+    if (!resp.ok) {
+      const body = await resp.text().catch(() => '');
+      console.error('[email] Resend send failed', resp.status, body);
+      return { sent: false, reason: `Resend responded ${resp.status}` };
+    }
+    return { sent: true };
+  } catch (err) {
+    // Network failure (DNS, timeout, etc.) — never let this crash the request that
+    // triggered the email; the visitor's form submission should still succeed.
+    console.error('[email] send threw', err.message);
+    return { sent: false, reason: err.message };
   }
-  return { sent: true };
 }
 
 module.exports = { sendEmail };
