@@ -1,0 +1,16 @@
+{
+  "name": "truffl-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Truffl marketing website — static site + Vercel serverless API stubs",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
