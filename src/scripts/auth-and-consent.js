@@ -2,6 +2,11 @@
 (function(){
  'use strict';
  const POLICY='2026-09-11.2',EMAIL='as@trufflinnovations.in';
+ /* Identity lives on the builder app. This site owns acquisition only, so every
+    credential route hands off there rather than rendering a local shell. */
+ const AUTH_ORIGIN='https://build.trufflinnovations.in',LOGIN_URL=AUTH_ORIGIN+'/login';
+ const CREDENTIAL=['/login','/activate-account','/reset-password','/forgot-password',
+  '/reset-email-sent','/reset-expired','/reset-complete','/invitation-expired','/invitation-sent'];
  const paths=['/login','/request-access','/request-access/received','/request-received','/activate-account','/invitation-expired','/invitation-sent','/forgot-password','/reset-password','/reset-expired','/reset-email-sent','/reset-complete'];
  window.trufflAuthPaths=paths;
  const card=document.getElementById('auth-card'),shell=document.getElementById('auth-shell'),dialog=document.getElementById('v-auth');
@@ -31,22 +36,22 @@
   if(path==='/login')body=heading('Enter your Truffl workspace.','Access your agents, interactions, evaluations and workspace settings.')+form('login',field('email','Work email','email','username')+field('password','Password','password','current-password')+link('/forgot-password','Forgot password?'),'Login')+'<p class="auth-bottom">New to Truffl? '+link('/request-access','Request access')+'</p>';
   if(path==='/contact'||path==='/request-access'){
    const access=path==='/request-access',kind=access?'access':'contact';
-   body=heading(access?'Request access to Truffl.':'Talk to us.','Tell us what you want to build. After submitting your details, choose a time to speak with the Truffl team.')+form(kind,contactFields(access),'Continue to scheduling')+(access?'<p class="auth-bottom">Already have access? '+link('/login','Login')+'</p>':'')+'<p class="auth-bottom">'+link('mailto:'+EMAIL,'Email us instead')+'</p>';
+   body=heading(access?'Request access to Truffl.':'Talk to us.','Tell us what you want to build. After submitting your details, choose a time to speak with the Truffl team.')+form(kind,contactFields(access),'Continue to scheduling')+(access?'<p class="auth-bottom">Already have access? '+link(LOGIN_URL,'Login')+'</p>':'')+'<p class="auth-bottom">'+link('mailto:'+EMAIL,'Email us instead')+'</p>';
   }
   if(path==='/request-access/received')body=heading('Your request is with us.',"We've received your request for Truffl access. If it is a fit for the current platform, we'll contact you at <strong>"+esc(receipt?.email||email)+'</strong> with the next step.')+'<div class="auth-actions"><a href="/" data-nav="home" class="auth-primary">Return home</a>'+link('/contact','Talk to us')+'</div>';
   if(path==='/contact/submitted')body=heading("Let's find a time.",'Thanks, '+esc((receipt?.fullName||'').split(' ')[0])+". We've received your details. Choose a convenient time to speak with us.")+'<p id="scheduler-link" hidden></p><div id="scheduler-status" class="scheduler-status" aria-live="polite"></div><div id="calendly-embed" class="calendly-embed"></div><p class="auth-bottom"><a href="/" data-nav="home">Return home</a></p>';
-  if(path==='/forgot-password')body=heading('Reset your password.','Enter the email associated with your Truffl workspace.')+form('recover',field('email','Work email','email','email'),'Send reset link')+'<p class="auth-bottom">'+link('/login','Back to login')+'</p>';
-  if(path==='/reset-email-sent')body=heading('Check your inbox.',"If a Truffl account exists for <strong>"+esc(email)+"</strong>, we've sent a password reset link.")+form('recover','','Resend link')+'<p class="auth-bottom">'+link('/login','Back to login')+'</p>';
-  if(path==='/reset-expired')body=heading('This reset link has expired.','Password reset links are time-limited for your security. Request a new one to continue.')+link('/forgot-password','Send new link',true)+'<p class="auth-bottom">'+link('/login','Back to login')+'</p>';
-  if(path==='/invitation-expired')body=heading('This invitation has expired.','Request a new invitation to continue setting up your Truffl workspace.')+form('resend-invite','','Resend invitation')+'<p class="auth-bottom">'+link('/login','Back to login')+'</p>';
-  if(path==='/invitation-sent')body=heading('A new invitation is on its way.','Check your inbox at <strong>'+esc(email.replace(/^(.).+(@.*)$/,'$1•••$2'))+'</strong>.')+link('/login','Back to login');
-  if(path==='/reset-complete')body=heading('Your password has been reset.','')+link('/login','Login',true);
-  if(path==='/activate-account'||path==='/reset-password')body=heading(path==='/activate-account'?'Activate your workspace.':'Create a new password.','We couldn’t verify this link right now. Please try again in a moment.')+form('verify-token','','Try again')+'<p class="auth-bottom">'+link('/login','Back to login')+'</p>';
+  if(path==='/forgot-password')body=heading('Reset your password.','Enter the email associated with your Truffl workspace.')+form('recover',field('email','Work email','email','email'),'Send reset link')+'<p class="auth-bottom">'+link(LOGIN_URL,'Back to login')+'</p>';
+  if(path==='/reset-email-sent')body=heading('Check your inbox.',"If a Truffl account exists for <strong>"+esc(email)+"</strong>, we've sent a password reset link.")+form('recover','','Resend link')+'<p class="auth-bottom">'+link(LOGIN_URL,'Back to login')+'</p>';
+  if(path==='/reset-expired')body=heading('This reset link has expired.','Password reset links are time-limited for your security. Request a new one to continue.')+link('/forgot-password','Send new link',true)+'<p class="auth-bottom">'+link(LOGIN_URL,'Back to login')+'</p>';
+  if(path==='/invitation-expired')body=heading('This invitation has expired.','Request a new invitation to continue setting up your Truffl workspace.')+form('resend-invite','','Resend invitation')+'<p class="auth-bottom">'+link(LOGIN_URL,'Back to login')+'</p>';
+  if(path==='/invitation-sent')body=heading('A new invitation is on its way.','Check your inbox at <strong>'+esc(email.replace(/^(.).+(@.*)$/,'$1•••$2'))+'</strong>.')+link(LOGIN_URL,'Back to login');
+  if(path==='/reset-complete')body=heading('Your password has been reset.','')+link(LOGIN_URL,'Login',true);
+  if(path==='/activate-account'||path==='/reset-password')body=heading(path==='/activate-account'?'Activate your workspace.':'Create a new password.','We couldn’t verify this link right now. Please try again in a moment.')+form('verify-token','','Try again')+'<p class="auth-bottom">'+link(LOGIN_URL,'Back to login')+'</p>';
   card.innerHTML=body;
   const f=card.querySelector('form');if(f&&formCache[f.dataset.authForm])for(const [k,v]of Object.entries(formCache[f.dataset.authForm]))if(f.elements[k])f.elements[k].value=v;
   focusHeading();if(path==='/contact/submitted')schedule();
  }
- function show(path){if(path==='/login')path='/contact';rememberForm();if(!dialog.open){opener=document.activeElement;returnURL=paths.includes(location.pathname)||location.pathname.startsWith('/contact')?'/':location.pathname+location.search+location.hash;}window.trufflCloseMobileMenu?.();if(!dialog.open){dialog.showModal();document.body.classList.add('auth-modal-open');}render(path==='/request-received'?'/request-access/received':path);dialog.scrollTop=0;}
+ function show(path){if(CREDENTIAL.includes(path)){location.assign(LOGIN_URL);return;}rememberForm();if(!dialog.open){opener=document.activeElement;returnURL=paths.includes(location.pathname)||location.pathname.startsWith('/contact')?'/':location.pathname+location.search+location.hash;}window.trufflCloseMobileMenu?.();if(!dialog.open){dialog.showModal();document.body.classList.add('auth-modal-open');}render(path==='/request-received'?'/request-access/received':path);dialog.scrollTop=0;}
  function close(){rememberForm();stopEmbed();if(dialog.open)dialog.close();}
  window.trufflCloseAuthModal=close;
  dialog.querySelector('.auth-close').addEventListener('click',close);

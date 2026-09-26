@@ -52,17 +52,57 @@ add an entry for it in `src/manifest.json` next to the other pages, and register
 | `AUTH_TOKEN_SECRET` | Magic-link auth | Any long random string, e.g. `openssl rand -hex 32`. Without it, a hardcoded dev-only secret is used — fine locally, **not safe in production**. |
 | `SLACK_WEBHOOK_URL` | Slack notifications | Create at https://api.slack.com/apps -> your app -> Incoming Webhooks -> Add New Webhook to Workspace. Without it, notifications are just logged, not sent. |
 
+## Customer journeys
+
+Identity lives entirely on the builder app at `build.trufflinnovations.in`
+(Next.js + Supabase Auth). This marketing site never stores a password or a
+session. One password, one reset flow, one session cookie.
+
+**Get access (gated invite)**
+
+1. Visitor submits **Request access** on this site.
+2. `POST /api/requests` stores the submission, emails `NOTIFY_EMAIL`, and posts
+   to Slack. Both carry a signed **Approve** link.
+3. Opening that link shows a confirmation page (a GET never changes state, since
+   mail scanners prefetch links). Confirming it POSTs the approval.
+4. Approval calls the builder app's invite endpoint when `TRUFFL_BUILD_INVITE_URL`
+   is set. Until it exists, the approval is recorded and Slack tells you to
+   invite the address from Supabase Auth by hand.
+5. The invitee sets a password once, on the builder app, and lands in the
+   workspace.
+
+**Login** — the Login control links straight to `build.trufflinnovations.in/login`.
+Every credential route on this site (`/login`, `/activate-account`,
+`/reset-password`, `/forgot-password`, the reset and invitation screens)
+redirects there, so each flow lives in exactly one place. Those local screens
+are retained only as redirects; building them for real on the builder app is
+tracked in the login requirements issue on `aatithyapersonal/Truffl`.
+
+**Book a meeting** — the Calendly embed needs `CALENDLY_EVENT_URL`. Bookings
+reach Slack and email through `POST /api/calendly`, which verifies Calendly's
+HMAC signature and rejects deliveries older than five minutes. Register the
+subscription once with `scripts/register-calendly-webhook.js` and put the
+`signing_key` it prints into `.env`. Google Calendar is deliberately **not**
+written by this code: Calendly's own Google Calendar connection does that, and
+it keeps reschedules and cancellations correct.
+
 ## What's real vs. still a stub
 
-- **Contact / request-access forms** — now email `as@trufflinnovations.in` (via Resend) on every submission, with all the fields the visitor entered. They're still not written to a database, so `GET /api/requests/:id` (used to re-show a confirmation screen after a page reload) always reports "not found" — the front end already handles that gracefully by sending the visitor back to the form. Add a database if you want a persistent record beyond your inbox.
-- **Pricing calculator** — now computes real estimates from Truffl's actual rate-card data (Deepgram/Sarvam/Azure STT, Murf/Sarvam/Cartesia/Fish Audio TTS, the OpenAI LLM pricing sheet), matching the numbers in your `Truffl_LLM_Pricing_Calculator` / `STT_Provider_Cost_Planner` / `TTS_Provider_Cost_Planner` workbooks. The one thing still a placeholder: the "Truffl platform" markup line is a flat ₹1 (see the `TODO` in `api/pricing/quotes.js`) — replace with your real margin. Update `api/pricing/models.js` whenever your rate card changes.
-- **Magic-link auth / login** — **important:** this exported site never had real user accounts, passwords, or sessions built. Its own source has a comment saying so: "Auth success must come from a connected authentication service, never a local UI transition." Concretely: the `/login` form and the `/activate-account` + `/reset-password` "verify-token" step have **no success path in the front-end code at all** — even a correct password or a valid token can't get anyone past those screens today. This is pre-existing, not something broken by this repo.
-  What *is* real now: `/forgot-password` emails a working, signed, 30-minute-expiring sign-in link (via Resend), and every login attempt + every link request posts a notification to Slack (via `api/_slack.js` / `SLACK_WEBHOOK_URL`) so you at least see the activity. Building actual accounts (a user database, password hashing, sessions/cookies) is a separate project — say the word if you want that built next.
-- **Calendly booking** — works as-is, it's a client-side embed, no backend needed.
-- **`/vision` and `/trust`** — now have simple "coming soon" placeholder pages (matching the site's style) instead of dead links. Replace their content in `index.html` (search for `id="v-vision"` / `id="v-trust"`) whenever that copy is ready.
-- The stray HTML comment and this being a plain HTML export are otherwise cleaned up — nothing left pointing at the tool this file was originally exported from.
-
-None of the above blocks deploying — the site works and the forms/calculator/auth all behave correctly even before you add `RESEND_API_KEY`/`AUTH_TOKEN_SECRET`, they just won't send real email until those are set.
+- **Contact / request-access forms** — real. Persisted as JSON under
+  `TRUFFL_DATA_DIR`, emailed via Resend, posted to Slack, and re-readable via
+  `GET /api/requests/:id`. Move to a database or CRM when one exists.
+- **Approval** — real, signed, two-step. The invitation half is a stub until the
+  builder app exposes an invite endpoint.
+- **Pricing calculator** — computes real estimates from the rate card in
+  `api/pricing/models.js`. The "Truffl platform" markup line is still a flat ₹1
+  (see the `TODO` in `api/pricing/quotes.js`).
+- **Cookie consent** — the banner and preferences dialog work and read their
+  inventory from `/api/bootstrap`. The chosen consent is stored in the browser
+  only; `consent` in the bootstrap response is still always `null`.
+- **`api/auth/[kind].js`** — superseded. Kept so old links do not 500, but no
+  page reaches it now that credential routes redirect to the builder app.
+- **`/vision` and `/trust`** — placeholder pages; replace their content in
+  `src/pages/vision.html` and `src/pages/trust.html`.
 
 ## Local development
 

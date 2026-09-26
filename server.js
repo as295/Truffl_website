@@ -24,10 +24,16 @@ const express = require('express');
 })();
 
 const app = express();
-app.use(express.json());
+// rawBody is kept so api/calendly.js can verify Calendly's HMAC over the exact
+// bytes that were signed; re-serialising the parsed object would not match.
+app.use(express.json({ verify: (req, _res, buf) => { req.rawBody = buf; } }));
+app.use(express.urlencoded({ extended: false }));
 
 // ---- wire up the /api handlers exactly as Vercel would ----
 app.post('/api/requests', require('./api/requests.js'));
+// Static path first: /api/requests/approve must not be read as an :id.
+app.all('/api/requests/approve', require('./api/requests/approve.js'));
+app.post('/api/calendly', require('./api/calendly.js'));
 app.get('/api/requests/:id', (req, res) => {
   req.query = { ...req.query, id: req.params.id };
   require('./api/requests/[id].js')(req, res);

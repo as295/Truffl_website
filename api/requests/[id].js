@@ -1,9 +1,18 @@
 // GET /api/requests/:id
-// Used to re-show a "submitted"/"received" confirmation screen on reload.
-// TODO: look the id up in the same store api/requests.js writes to.
-// Until there's a real store, every id is reported as not-found, which the
-// front end already handles gracefully (it just sends the visitor back to
-// the form instead of showing a broken confirmation page).
-module.exports = (req, res) => {
-  res.status(404).json({ message: 'Not found' });
+// Re-shows a "submitted"/"received" confirmation screen after a reload.
+// Returns only what that screen renders; never the full stored record.
+const { readRequest } = require('../_store.js');
+
+module.exports = async (req, res) => {
+  const id = (req.query && req.query.id) || '';
+  const record = await readRequest(id);
+  if (!record) return res.status(404).json({ message: 'Not found' });
+  res.status(200).json({
+    id: record.id,
+    kind: record.kind,
+    createdAt: record.createdAt,
+    fullName: record.fullName,
+    email: record.email,
+    company: record.company,
+  });
 };
