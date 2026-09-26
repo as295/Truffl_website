@@ -67,7 +67,7 @@ module.exports = async (req, res) => {
     // itself will still show a generic error (see NOTE above) until real accounts exist.
     const email = (body.email || '').trim();
     console.log('[api/auth/login] attempt', { email });
-    notifySlack(`:closed_lock_with_key: Login *attempted* for *${email || '(no email)'}* — no accounts system exists yet, so this could not be verified.`).catch(() => {});
+    notifySlack(`:closed_lock_with_key: Login *attempted* for *${email || '(no email)'}*, no accounts system exists yet, so this could not be verified.`).catch(() => {});
     return res.status(401).json({ message: 'Login is not yet connected to a real account system.' });
   }
 

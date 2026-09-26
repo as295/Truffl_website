@@ -22,7 +22,7 @@
  new MutationObserver(()=>{if(!root.classList.contains('on')){lockCalculator();if(gate.open)gate.close();}}).observe(root,{attributes:true,attributeFilter:['class']});
  const $=id=>document.getElementById('pc-'+id);
  const form=document.getElementById('pricing-form');
- const money=(v,d=2)=>v===null?'—':v.toLocaleString('en-IN',{minimumFractionDigits:d,maximumFractionDigits:d});
+ const money=(v,d=2)=>v===null?'–':v.toLocaleString('en-IN',{minimumFractionDigits:d,maximumFractionDigits:d});
  function options(key,label){rates[key].forEach((m,i)=>{const o=document.createElement('option');o.value=i;o.textContent=label(m);$(key).append(o);});}
  async function initialize(){try{await pricingReady;const r=await fetch('/api/pricing/models');if(!r.ok)throw Error();rates=await r.json();options('llm',m=>m.name+' · '+m.route);options('stt',m=>m.provider==='Deepgram'?'Deepgram '+m.name:m.name);options('tts',m=>m.name);queueUpdate();}catch{boot=null;showError('The calculator could not load. Close and reopen it to try again.');}}
  const keys=['calls','duration','inputTokens','outputTokens','share','buffer','chars','bytes','fx'];
@@ -47,7 +47,7 @@
    if(version!==requestVersion)return;
    const c=result.quote;$('error').hidden=true;$('retry').hidden=true;
    $('sheet-status').textContent=result.sheetStatus==='synced'?'Estimate saved.':'Estimate saved. We’re retrying the connection to our records.';
-   $('per-minute').textContent=c.perMinute===null?'—':'₹'+money(c.perMinute,4);
+   $('per-minute').textContent=c.perMinute===null?'–':'₹'+money(c.perMinute,4);
    $('total').textContent='₹'+money(c.total);
    $('usage').textContent=money(p.calls,0)+' connected calls · '+money(c.minutes,1)+' call minutes / month';
    const rows=[...(c.realtime?[['Realtime text','Text input + output',c.llm],['Realtime audio input','Caller audio',c.audioInput],['Realtime audio output','Agent audio',c.audioOutput]]:[['Language model','Token usage',c.llm],['Speech to text','Connected audio',c.stt],['Text to speech',c.plan?'Monthly plan + overage':'Agent speech',c.tts]]),['Model subtotal',c.realtime?'GPT Realtime Mini':'LLM + STT + TTS',c.provider],['Truffl platform','₹1 once per calculation total',c.platform],['Combined total','',c.total]];
@@ -55,8 +55,8 @@
    $('plan').textContent=c.plan?'Cartesia '+c.plan.name+': $'+c.plan.fee+' monthly subscription with '+money(c.plan.included,0)+' included credits; overage included in the estimate.':'';
   }catch(e){if(version===requestVersion)showError(e.message);}
  }
- function showError(message){$('retry').hidden=false;$('error').textContent=message;$('error').hidden=false;$('per-minute').textContent='—';$('total').textContent='—';$('breakdown').innerHTML='';$('usage').textContent='';$('plan').textContent='';}
- function queueUpdate(){clearTimeout(timer);const version=++requestVersion;if(!rates||calculator.hidden)return;$('retry').hidden=true;$('error').hidden=true;$('per-minute').textContent='—';$('total').textContent='—';$('breakdown').innerHTML='';$('plan').textContent='';$('usage').textContent='Calculating…';timer=setTimeout(()=>update(version),600);}
+ function showError(message){$('retry').hidden=false;$('error').textContent=message;$('error').hidden=false;$('per-minute').textContent='–';$('total').textContent='–';$('breakdown').innerHTML='';$('usage').textContent='';$('plan').textContent='';}
+ function queueUpdate(){clearTimeout(timer);const version=++requestVersion;if(!rates||calculator.hidden)return;$('retry').hidden=true;$('error').hidden=true;$('per-minute').textContent='–';$('total').textContent='–';$('breakdown').innerHTML='';$('plan').textContent='';$('usage').textContent='Calculating…';timer=setTimeout(()=>update(version),600);}
  $('retry').addEventListener('click',()=>{if(!rates)boot=initialize();else queueUpdate();});
  form.addEventListener('submit',e=>{e.preventDefault();queueUpdate();});form.addEventListener('input',queueUpdate);form.addEventListener('change',queueUpdate);
 })();

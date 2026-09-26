@@ -13,7 +13,7 @@ module.exports = (req, res) => {
       {
         id: 'openai-gpt-5.6-luna-standard',
         name: 'GPT-5.6 Luna',
-        route: 'OpenAI API — Standard',
+        route: 'OpenAI API (Standard)',
         kind: 'standard',
         input: 0.2,   // $ / 1M input tokens
         output: 1.2,  // $ / 1M output tokens
