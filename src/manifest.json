@@ -235,6 +235,12 @@
    "open": "<script id=\"truffl-card-stack-anim\">",
    "close": "</script>",
    "after": "\n"
+  },
+  {
+   "file": "styles/truffl-ambient-blue.css",
+   "open": "<style id=\"truffl-ambient-blue\">",
+   "close": "</style>",
+   "after": "\n"
   }
  ]
 }

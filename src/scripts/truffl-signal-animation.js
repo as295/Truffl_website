@@ -8,7 +8,8 @@
  // A quiet perspective corridor, drawn entirely in the logo's Truffl blue.
  const logo=stage.querySelector('.mark svg g[fill="#3b66d6"]');
  const logoBlue=logo?getComputedStyle(logo).fill:getComputedStyle(home).getPropertyValue('--signal').trim();
- const architecture=document.querySelector('#v-pricing .pricing-hero-art'),textures=[];
+ // The pricing page's architecture illustration is no longer projected onto the corridor walls.
+ const architecture=null,textures=[];
  function prepareTextures(){
   if(!architecture||!architecture.naturalWidth)return;
   const crops=[[0,0,1536,1024],[110,180,830,830],[800,0,720,720]];
@@ -41,23 +42,23 @@
   const stroke=(a,b,opacity)=>{
    ctx.globalAlpha=opacity;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
   };
-  ctx.strokeStyle='#dbe6ff';ctx.fillStyle=logoBlue;ctx.lineWidth=mobile?.65:.8;
+  ctx.strokeStyle=logoBlue;ctx.fillStyle=logoBlue;ctx.lineWidth=mobile?.65:.8;
   // The floor, ceiling and side walls converge on the same quiet vanishing point.
   for(let i=0;i<=6;i++){
    const u=-1.18+i*2.36/6;
-   stroke(project(u,-.88,.65),project(u,-.88,5.8),.27);
-   stroke(project(u,.88,.65),project(u,.88,5.8),.27);
+   stroke(project(u,-.88,.65),project(u,-.88,5.8),.16);
+   stroke(project(u,.88,.65),project(u,.88,5.8),.16);
   }
   for(let i=1;i<5;i++){
    const v=-.88+i*1.76/5;
-   stroke(project(-1.18,v,.65),project(-1.18,v,5.8),.27);
-   stroke(project(1.18,v,.65),project(1.18,v,5.8),.27);
+   stroke(project(-1.18,v,.65),project(-1.18,v,5.8),.16);
+   stroke(project(1.18,v,.65),project(1.18,v,5.8),.16);
   }
   const flow=(time*.025)%1;
   for(let i=0;i<9;i++){
    const z=.77*Math.pow(1.42,i-flow);
    const corners=[project(-1.18,-.88,z),project(1.18,-.88,z),project(1.18,.88,z),project(-1.18,.88,z)];
-   ctx.globalAlpha=.4*Math.max(0,1-z/7);polygon(corners);ctx.stroke();
+   ctx.globalAlpha=.22*Math.max(0,1-z/7);polygon(corners);ctx.stroke();
   }
   // The pricing page's blue-and-white architecture inhabits the corridor's planes.
   const panels=[
@@ -74,7 +75,7 @@
    };
    const q=[point(0,0),point(1,0),point(1,1),point(0,1)];
    ctx.save();polygon(q);ctx.clip();
-   ctx.globalAlpha=.12*strength;ctx.fillStyle='#dbe6ff';ctx.fill();
+   ctx.globalAlpha=.05*strength;ctx.fillStyle=logoBlue;ctx.fill();
    if(textures.length){
     const map=(u,v)=>wall==='left'?point(v,1-u):wall==='right'?point(v,u):wall==='bottom'?point(u,1-v):point(u,v);
     const steps=mobile||strength<1?2:4,texture=textures[motif];
@@ -120,7 +121,7 @@
   // Exclude the actual text and controls, without altering their layout or styling.
   ctx.save();ctx.beginPath();ctx.rect(0,0,width,height);
   quietAreas.forEach(r=>ctx.rect(r.x,r.y,r.width,r.height));ctx.clip('evenodd');
-  ctx.strokeStyle='#dbe6ff';ctx.lineWidth=.65;
+  ctx.strokeStyle=logoBlue;ctx.lineWidth=.65;
   [2.23,2.85].forEach((depth,index)=>{
    const z=depth*(1+.018*Math.sin(time*.09+index));
    polygon([project(-1.18,-.88,z),project(1.18,-.88,z),project(1.18,.88,z),project(-1.18,.88,z)]);
@@ -137,7 +138,11 @@
    });
   }
   ctx.restore();ctx.globalAlpha=1;
-  ctx.save();ctx.globalCompositeOperation='destination-over';ctx.fillStyle=logoBlue;ctx.fillRect(0,0,width,height);ctx.restore();
+  // A light, ambient wash of the logo blue sits under everything instead of a solid block.
+  ctx.save();ctx.globalCompositeOperation='destination-over';
+  const wash=ctx.createLinearGradient(0,0,width*.4,height);
+  wash.addColorStop(0,'#f3f6ff');wash.addColorStop(.55,'#dfe8ff');wash.addColorStop(1,'#c9d9ff');
+  ctx.fillStyle=wash;ctx.fillRect(0,0,width,height);ctx.restore();
  }
  function allowed(){return width>0&&inView&&!document.hidden&&!reduced.matches&&!paused;}
  function tick(now){

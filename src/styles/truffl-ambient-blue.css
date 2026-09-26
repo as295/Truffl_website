@@ -1,0 +1,42 @@
+
+/* Ambient blue: the page heroes sit on a light, translucent wash of the logo blue
+   instead of a solid cobalt block. Text on those heroes is ink, not white. */
+:root{--ambient-a:#f3f6ff;--ambient-b:#dfe8ff;--ambient-c:#c9d9ff;--ambient-ink:#153471;--ambient-body:#4b587c}
+
+/* Home hero (the canvas paints the wash; these keep the copy readable on it) */
+#v-home #stage .hero h1,#v-home #stage .hero h1 em{color:var(--ambient-ink)}
+#v-home #stage .hero h1 em{color:var(--signal)}
+#v-home #stage .thesis{color:var(--ambient-body)}
+#v-home #stage .btn-solid{background:var(--signal);border-color:var(--signal);color:#fff}
+#v-home #stage .btn-solid:hover{background:#2b54bf;border-color:#2b54bf;color:#fff}
+#v-home #stage .btn-ghost{color:var(--signal);border-color:rgba(59,102,214,.45);background:rgba(255,255,255,.7);backdrop-filter:none}
+#v-home #stage .btn-ghost:hover{background:#fff;border-color:var(--signal)}
+#v-home #stage .site-head .actions .talk{color:var(--ambient-body)}
+
+/* Revenue recovery hero */
+#v-rr #truffl-recovery-concept .tr-hero{background:linear-gradient(160deg,var(--ambient-a) 0%,var(--ambient-b) 55%,var(--ambient-c) 100%)!important;color:var(--ambient-ink)}
+#v-rr #truffl-recovery-concept .tr-hero-copy h1{color:var(--ambient-ink)!important}
+#v-rr #truffl-recovery-concept .tr-hero-copy>p,#v-rr #truffl-recovery-concept .tr-motion-contr{color:var(--ambient-body)!important}
+#v-rr #truffl-recovery-concept .tr-hero .tr-eyebrow{background:#fff;border:1px solid #d1dcff;color:var(--signal)!important}
+#v-rr #truffl-recovery-concept .tr-hero .tr-action-white{background:var(--signal)!important;color:#fff!important}
+#v-rr #truffl-recovery-concept .tr-hero .tr-action-white:hover{background:#2b54bf!important}
+
+/* Retail customer support hero */
+#v-cx #cx-hero{background:linear-gradient(160deg,var(--ambient-a) 0%,var(--ambient-b) 55%,var(--ambient-c) 100%)!important;color:var(--ambient-ink)}
+#v-cx #cx-hero h1{color:var(--ambient-ink)!important}
+#v-cx #cx-hero .sub{color:var(--ambient-body)!important}
+#v-cx #cx-hero .kick{background:#fff;border:1px solid #d1dcff;color:var(--signal)}
+#v-cx #cx-hero .btn-glow{background:var(--signal)!important;color:#fff!important}
+#v-cx #cx-hero .btn-glow::before{opacity:.35}
+#v-cx #cx-hero .btn-line{color:var(--signal)!important;background:rgba(255,255,255,.7)!important;border-color:rgba(59,102,214,.4)!important}
+#v-cx #cx-hero .site-head{box-shadow:0 8px 30px rgba(24,48,157,.06)}
+
+/* Pricing hero */
+#v-pricing .pricing-banner{background:linear-gradient(160deg,var(--ambient-a) 0%,var(--ambient-b) 55%,var(--ambient-c) 100%)}
+#v-pricing .pricing-banner h1,#v-pricing .pricing-banner .pricing-intro h1{color:var(--ambient-ink)!important}
+#v-pricing .pricing-banner .pricing-intro p:not(.pricing-kicker){color:var(--ambient-body)!important}
+#v-pricing .pricing-banner .pricing-kicker{background:#fff!important;border:1px solid #d1dcff;color:var(--signal)!important}
+#v-pricing .pricing-banner .site-head{box-shadow:0 8px 30px rgba(24,48,157,.06)}
+#v-rr #truffl-recovery-concept .tr-agent-overlay text{fill:var(--ambient-ink)}
+#v-rr #truffl-recovery-concept .tr-motion-controls,#v-rr #truffl-recovery-concept .tr-motion-controls span{color:var(--ambient-body)}
+#v-rr #truffl-recovery-concept .tr-motion-controls button{color:var(--signal);border-color:rgba(59,102,214,.45);background:rgba(255,255,255,.8)}
