@@ -81,8 +81,9 @@ tracked in the login requirements issue on `aatithyapersonal/Truffl`.
 **Book a meeting** — the Calendly embed needs `CALENDLY_EVENT_URL`. Bookings
 reach Slack and email through `POST /api/calendly`, which verifies Calendly's
 HMAC signature and rejects deliveries older than five minutes. Register the
-subscription once with `scripts/register-calendly-webhook.js` and put the
-`signing_key` it prints into `.env`. Google Calendar is deliberately **not**
+subscription once with `automations/register-calendly-webhook.js` in
+[as295/truffl-automations](https://github.com/as295/truffl-automations) and put
+the `signing_key` it prints into `.env`. Google Calendar is deliberately **not**
 written by this code: Calendly's own Google Calendar connection does that, and
 it keeps reschedules and cancellations correct.
 
@@ -90,7 +91,12 @@ it keeps reschedules and cancellations correct.
 
 - **Contact / request-access forms** — real. Persisted as JSON under
   `TRUFFL_DATA_DIR`, emailed via Resend, posted to Slack, and re-readable via
-  `GET /api/requests/:id`. Move to a database or CRM when one exists.
+  `GET /api/requests/:id`. In production `TRUFFL_DATA_DIR` is a clone of the
+  private [as295/truffl-automations](https://github.com/as295/truffl-automations)
+  repository, so every record is committed and survives a server rebuild.
+- **Notifications** — durable. Each one is written to `data/outbox/` whether or
+  not `SLACK_WEBHOOK_URL` is set, recording whether it was delivered, so nothing
+  is lost while the webhook is missing.
 - **Approval** — real, signed, two-step. The invitation half is a stub until the
   builder app exposes an invite endpoint.
 - **Pricing calculator** — computes real estimates from the rate card in

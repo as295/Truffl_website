@@ -14,6 +14,7 @@ const crypto = require('crypto');
 const { notifySlack } = require('./_slack.js');
 const { sendEmail } = require('./_email.js');
 const { NOTIFY_TO } = require('./_config.js');
+const { save } = require('./_store.js');
 
 const TOLERANCE_SECONDS = 300;
 
@@ -56,6 +57,25 @@ module.exports = async (req, res) => {
   const eventName = p.scheduled_event?.name || 'a meeting';
   const when = startsAt ? new Date(startsAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'short' }) : 'time unknown';
   const answers = (p.questions_and_answers || []).map((q) => `${q.question}: ${q.answer}`).join('\n');
+
+  // Persist before notifying: a booking is a record, not just a message.
+  const bookingId = (p.uri || p.scheduled_event?.uri || '').split('/').filter(Boolean).pop() || `cal-${Date.now()}`;
+  try {
+    await save('bookings', {
+      id: bookingId,
+      createdAt: new Date().toISOString(),
+      event,
+      status: event === 'invitee.canceled' ? 'canceled' : 'scheduled',
+      invitee,
+      email: p.email || '',
+      eventName,
+      startsAt: startsAt || null,
+      answers: p.questions_and_answers || [],
+      cancellation: p.cancellation || null,
+    });
+  } catch (err) {
+    console.error('[api/calendly] could not persist booking', err.message);
+  }
 
   if (event === 'invitee.created') {
     await notifySlack(`:calendar: *Meeting booked* — ${invitee} (${p.email || 'no email'})\n*${eventName}* · ${when} IST${answers ? `\n${answers}` : ''}`);
