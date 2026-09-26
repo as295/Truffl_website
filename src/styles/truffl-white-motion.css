@@ -1,0 +1,74 @@
+
+/* White landing page with a continuously shifting field of fine signal lines. */
+body{background:#fff}
+#v-home{background:#fff}
+#v-home #stage{isolation:isolate;background:#fff;background-image:none;color:#17213b;min-height:900px;min-height:max(820px,100svh)}
+#v-home #stage::after{content:'';position:absolute;inset:auto 0 0;height:140px;z-index:1;pointer-events:none;background:linear-gradient(transparent,#fff)}
+#v-home #signal-field{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:var(--signal-opacity,1);transform:translateY(var(--signal-offset,0px));mask-image:linear-gradient(90deg,#000 0%,#000 10%,transparent 36%,transparent 64%,#000 90%,#000 100%)}
+#v-home #stage .site-head{height:100px;flex-basis:100px;max-width:1440px;width:100%;margin-inline:auto;z-index:4;color:#17213b}
+#v-home #stage .site-head .mark svg>g{fill:#17213b}
+#v-home #stage .site-head .mark svg{width:100px;height:auto}
+#v-home #stage .site-head nav{color:#344054;font-size:14px;gap:28px}
+#v-home #stage .navsol-t{color:#344054}
+#v-home #stage .site-head .actions .talk{color:#536074;font-size:14px}
+#v-home #stage .site-head .actions .login{background:#17213b;color:#fff;border:1px solid #17213b;padding:12px 21px;font-size:13px}
+#v-home #stage .hero{padding:98px 24px 116px;max-width:1100px;flex:1;justify-content:flex-start}
+#v-home #stage .hero h1{font-size:clamp(44px,5.7vw,82px);line-height:1.06;letter-spacing:-.05em;color:#151c2c;max-width:920px;margin:0 auto 27px;font-weight:400;text-wrap:balance;animation:truffl-arrive 950ms cubic-bezier(.18,.75,.25,1) both}
+#v-home #stage .hero h1 em{color:#3b66d6}
+#v-home #stage .thesis{color:#687284;font-size:clamp(17px,1.5vw,21px);line-height:1.55;max-width:660px;margin:0 auto 35px;text-wrap:balance;animation:truffl-arrive 950ms 90ms cubic-bezier(.18,.75,.25,1) both}
+#v-home #stage .ctas{gap:12px;margin-bottom:72px;animation:truffl-arrive 950ms 170ms cubic-bezier(.18,.75,.25,1) both}
+#v-home #stage .btn-solid,#v-home #stage .btn-ghost{padding:15px 25px;min-height:50px;font-size:13px;line-height:1.45;letter-spacing:.045em;border-radius:3px;transition:background .2s,transform .2s,box-shadow .2s}
+#v-home #stage .btn-solid{background:#3b66d6;border-color:#3b66d6;color:#fff;box-shadow:0 5px 12px #3b66d615}
+#v-home #stage .btn-ghost{background:#fff;color:#273248;border-color:#d5dae4;backdrop-filter:none}
+#v-home #stage .btn:hover{filter:none;transform:translateY(-2px);box-shadow:0 8px 20px #22346612}
+#v-home #stage .btn-solid:hover{background:#3b66d6}
+#v-home #stage #herocard{max-width:620px;animation:truffl-arrive 1.1s 250ms cubic-bezier(.18,.75,.25,1) both}
+#v-home #stage #herocard .card{width:100%;padding:24px 25px;background:rgba(255,255,255,.95);color:#253047;border:1px solid #e0e5ee;border-radius:10px;box-shadow:0 16px 50px -22px #263c702b;backdrop-filter:none}
+#v-home #stage #herocard .line{font-size:16px;min-height:0;margin-bottom:20px}
+#v-home #stage #herocard .row{gap:8px}
+#v-home #stage #herocard .chip{color:#4e5c73;background:#fff;border:1px solid #dce2ed;font-size:12px;padding:9px 10px;border-radius:4px}
+#v-home #stage #herocard .chip:hover{background:#f2f5ff;filter:none}
+#v-home #stage #herocard .chip[aria-pressed=true]{background:#edf2ff;color:#3b66d6;border-color:#aabbff}
+#v-home #stage #herocard .card .agent{color:#67758c;border-color:#e2e7f0;border-radius:4px;font-size:12px}
+#v-home #stage #herocard .card .agent i{color:#67758c}
+#v-home #stage #herocard .card .play{color:#3b66d6;background:#f2f5ff;border:1px solid #dbe4ff}
+#v-home #stage .motion-toggle{position:absolute;bottom:35px;right:var(--pad-x);z-index:3;width:40px;height:40px;border:1px solid #e3e7ef;border-radius:50%;display:grid;place-items:center;background:#fffffff2;color:#718099;cursor:pointer;transition:background .2s}
+#v-home #stage .motion-toggle:hover{background:#f2f5ff;color:#3b66d6}
+#v-home #stage .motion-toggle svg{width:14px;height:14px}
+#v-home #stage .motion-toggle .motion-play{display:none}
+#v-home #stage .motion-toggle[aria-pressed=true] .motion-play{display:block}
+#v-home #stage .motion-toggle[aria-pressed=true] .motion-pause{display:none}
+#v-home #stack,#v-home #k2c,#v-home #k0c,#v-home #connect,#v-home #faq,#v-home .global-footer{background:#fff;background-image:none!important}
+#v-home #k2c.developers-section{background:#fff;border-top:1px solid #eef0f5}
+#v-home #closing{background:#fff;background-image:none;color:#17213b}
+#v-home #closing h2{color:#17213b}
+@keyframes truffl-arrive{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1000px){
+ #v-home #stage .hero{padding-top:100px}
+ #v-home #stage .hero h1{max-width:760px;font-size:clamp(48px,6.4vw,64px)}
+ #v-home #signal-field{mask-image:linear-gradient(90deg,#000,transparent 27%,transparent 73%,#000)}
+}
+@media(max-width:620px){
+ #v-home #stage{min-height:840px}
+ #v-home #stage .site-head{height:82px;flex-basis:82px}
+ #v-home #stage .site-head .mark svg{width:82px}
+ #v-home #stage .site-head .actions .login{padding:11px 17px;font-size:12px}
+ #v-home #stage .hero{padding:96px 22px 108px}
+ #v-home #stage .hero h1{font-size:clamp(40px,10.5vw,60px);letter-spacing:-.045em;max-width:14ch;line-height:1.07;margin-bottom:25px}
+ #v-home #stage .thesis{font-size:17px;max-width:33ch;line-height:1.6;margin-bottom:30px}
+ #v-home #stage .ctas{width:100%;gap:10px;margin-bottom:51px}
+ #v-home #stage .btn-solid,#v-home #stage .btn-ghost{padding:15px 16px;font-size:12px}
+ #v-home #stage #herocard .card{padding:20px 17px;border-radius:8px}
+ #v-home #stage #herocard .line{font-size:15px;line-height:1.5}
+ #v-home #stage #herocard .chip{min-height:42px;font-size:12px}
+ #v-home #stage #herocard .card .agent{font-size:12px}
+ #v-home #signal-field{opacity:calc(var(--signal-opacity,1)*.55);mask-image:linear-gradient(#000,transparent 22%,transparent 70%,#000)}
+ #v-home #stage .motion-toggle{bottom:24px;right:22px}
+}
+@media(prefers-reduced-motion:reduce){
+ #v-home #stage .hero h1,#v-home #stage .thesis,#v-home #stage .ctas,#v-home #stage #herocard{animation:none}
+ #v-home #signal-field{transform:none}
+ #v-home #stage .btn{transition:none}
+ #v-home #stage .motion-toggle{display:none}
+}
+

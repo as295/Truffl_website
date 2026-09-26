@@ -1,0 +1,240 @@
+{
+ "head": "document-head.html",
+ "tail": "document-tail.html",
+ "parts": [
+  {
+   "file": "styles/site.css",
+   "after": "\n"
+  },
+  {
+   "file": "partials/utility-announcement.html",
+   "after": "\n"
+  },
+  {
+   "file": "partials/cookie-banner.html",
+   "after": "\n"
+  },
+  {
+   "file": "partials/cookie-preferences.html",
+   "after": "\n"
+  },
+  {
+   "file": "partials/v-auth.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/evals.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/appstudio.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/notfound.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/unavailable.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/vision.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/trust.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/privacy.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/terms.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/cookies.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/pricing.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/platform.html",
+   "after": "\n\n"
+  },
+  {
+   "file": "pages/home.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/rr.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/ent.html",
+   "after": "\n\n"
+  },
+  {
+   "file": "pages/cx.html",
+   "after": "\n\n"
+  },
+  {
+   "file": "scripts/home-scenes.js",
+   "open": "<script>",
+   "close": "</script>",
+   "after": "\n"
+  },
+  {
+   "file": "scripts/rr-scenes.js",
+   "open": "<script>",
+   "close": "</script>",
+   "after": "\n"
+  },
+  {
+   "file": "scripts/reveal-on-scroll.js",
+   "open": "<script>",
+   "close": "</script>",
+   "after": "\n"
+  },
+  {
+   "file": "scripts/router.js",
+   "open": "<script>",
+   "close": "</script>",
+   "after": "\n\n"
+  },
+  {
+   "file": "scripts/cx-support.js",
+   "open": "<script>",
+   "close": "</script>",
+   "after": "\n\n"
+  },
+  {
+   "file": "scripts/creator-demo.js",
+   "open": "<script>",
+   "close": "</script>",
+   "after": "\n"
+  },
+  {
+   "file": "partials/mobile-navigation.html",
+   "after": "\n"
+  },
+  {
+   "file": "scripts/mobile-nav.js",
+   "open": "<script>",
+   "close": "</script>",
+   "after": "\n"
+  },
+  {
+   "file": "scripts/auth-and-consent.js",
+   "open": "<script>",
+   "close": "</script>",
+   "after": "\n"
+  },
+  {
+   "file": "scripts/pricing-calculator.js",
+   "open": "<script>",
+   "close": "</script>",
+   "after": "\n"
+  },
+  {
+   "file": "styles/truffl-white-motion.css",
+   "open": "<style id=\"truffl-white-motion\">",
+   "close": "</style>",
+   "after": "\n"
+  },
+  {
+   "file": "styles/truffl-continuous-theme.css",
+   "open": "<style id=\"truffl-continuous-theme\">",
+   "close": "</style>",
+   "after": "\n\n"
+  },
+  {
+   "file": "styles/truffl-logo-blue.css",
+   "open": "<style id=\"truffl-logo-blue\">",
+   "close": "</style>",
+   "after": "\n"
+  },
+  {
+   "file": "styles/truffl-connect-blue.css",
+   "open": "<style id=\"truffl-connect-blue\">",
+   "close": "</style>",
+   "after": "\n"
+  },
+  {
+   "file": "scripts/truffl-signal-animation.js",
+   "open": "<script id=\"truffl-signal-animation\">",
+   "close": "</script>",
+   "after": "\n\n\n\n\n"
+  },
+  {
+   "file": "styles/truffl-native-animation-style.css",
+   "open": "<style id=\"truffl-native-animation-style\">",
+   "close": "</style>",
+   "after": "\n"
+  },
+  {
+   "file": "scripts/truffl-native-animation-controller.js",
+   "open": "<script id=\"truffl-native-animation-controller\">",
+   "close": "</script>",
+   "after": "\n"
+  },
+  {
+   "file": "scripts/truffl-unified-production-controller.js",
+   "open": "<script id=\"truffl-unified-production-controller\">",
+   "close": "</script>",
+   "after": "\n"
+  },
+  {
+   "file": "scripts/truffl-closing-motion-controller.js",
+   "open": "<script id=\"truffl-closing-motion-controller\">",
+   "close": "</script>",
+   "after": "\n"
+  },
+  {
+   "file": "styles/truffl-faq-closing-style.css",
+   "open": "<style id=\"truffl-faq-closing-style\">",
+   "close": "</style>",
+   "after": "\n"
+  },
+  {
+   "file": "styles/truffl-revenue-redesign.css",
+   "open": "<style id=\"truffl-revenue-redesign\">",
+   "close": "</style>",
+   "after": "\n"
+  },
+  {
+   "file": "scripts/truffl-lottie-runtime.js",
+   "open": "<script id=\"truffl-lottie-runtime\">",
+   "close": "</script>",
+   "after": "\n"
+  },
+  {
+   "file": "scripts/tr-revenue-data.js",
+   "open": "<script type=\"application/json\" id=\"tr-revenue-data\">",
+   "close": "</script>",
+   "after": "\n"
+  },
+  {
+   "file": "scripts/truffl-revenue-redesign-controller.js",
+   "open": "<script id=\"truffl-revenue-redesign-controller\">",
+   "close": "</script>",
+   "after": "\n\n"
+  },
+  {
+   "file": "scripts/truffl-arch-grid-anim.js",
+   "open": "<script id=\"truffl-arch-grid-anim\">",
+   "close": "</script>",
+   "after": "\n\n"
+  },
+  {
+   "file": "scripts/truffl-card-stack-anim.js",
+   "open": "<script id=\"truffl-card-stack-anim\">",
+   "close": "</script>",
+   "after": "\n"
+  }
+ ]
+}

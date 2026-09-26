@@ -2,10 +2,13 @@
   "name": "truffl-website",
   "version": "1.0.0",
   "private": true,
-  "description": "Truffl marketing website — static site + Vercel serverless API stubs",
+  "description": "Truffl marketing website \u2014 static site + Vercel serverless API stubs",
   "scripts": {
-    "dev": "node server.js",
-    "start": "node server.js"
+    "build": "node build.js",
+    "check": "node build.js --check",
+    "prestart": "node build.js",
+    "start": "node server.js",
+    "dev": "node build.js && node server.js"
   },
   "engines": {
     "node": ">=18"

@@ -7,21 +7,40 @@ single-page app — all CSS/JS/images are inlined, client-side routed via `pushS
 
 ## Structure
 
+`index.html` is **generated** — never edit it by hand (it is git-ignored). Edit the
+pieces under `src/` and run `npm run build`; `npm start` / `npm run dev` build first
+automatically.
+
 ```
-index.html          the whole site (edit this directly for copy/layout/style changes)
-api/
-  bootstrap.js       GET  /api/bootstrap        cookie-consent config on page load
-  consent.js         POST /api/consent          save a visitor's cookie choice
-  requests.js        POST /api/requests          contact form / request-access form -> emails as@trufflinnovations.in
-  requests/[id].js   GET  /api/requests/:id      re-fetch a submitted request
-  auth/[kind].js     POST /api/auth/:kind        magic-link recover/verify (real signed tokens + email)
-  pricing/access.js  POST /api/pricing/access    lead-gate for the pricing calculator
-  pricing/models.js  GET  /api/pricing/models    real STT/TTS/LLM rate card
-  pricing/quotes.js  POST /api/pricing/quotes    computes a real pricing estimate from that rate card
-  _email.js          shared Resend email helper used by requests.js and auth/[kind].js
-server.js            local dev server (mirrors Vercel's routing)
-vercel.json          SPA rewrite rule (everything but /api/* → index.html)
+src/
+  manifest.json          the order in which parts are stitched together (append here to add a page)
+  document-head.html     <head> + opening <body>
+  pages/<name>.html      one file per page/view: home, pricing, platform, rr (revenue recovery),
+                         cx (retail support), ent (enterprise), evals, appstudio, privacy, terms,
+                         cookies, vision, trust, notfound, unavailable
+  partials/              shared fragments — footer.html / footer-alt.html and
+                         legal-header.html / legal-header-alt.html are pulled into pages with
+                         <!-- @include partials/footer.html -->; cookie banner, auth dialog, mobile nav
+  styles/site.css        the site-wide stylesheet (large: inlined images live here)
+  styles/*.css           smaller, feature-specific stylesheets
+  scripts/router.js      the client-side router (register a new page here: V, TITLE, HASH, ROUTE)
+  scripts/*.js           one file per behaviour (home-scenes, rr-scenes, cx-support, pricing-calculator,
+                         auth-and-consent, mobile-nav, animations, lottie runtime + data)
+  document-tail.html     closing tags
+build.js                 concatenates the above into index.html (byte-for-byte what was deployed before)
+api/                     Node serverless functions for the endpoints the page calls (see below)
+server.js                local dev / production server (serves index.html + runs api/)
+vercel.json              SPA rewrite rule (everything but /api/* → index.html)
 ```
+
+**Changing one page** = edit `src/pages/<name>.html` (and, if it has its own CSS/JS, the matching
+file in `styles/` or `scripts/`), run `npm run build`, commit `src/` only.
+
+**Adding a page** = create `src/pages/<name>.html` with `<div id="v-<name>" class="view">…</div>`,
+add an entry for it in `src/manifest.json` next to the other pages, and register it in
+`src/scripts/router.js` (the `V`, `TITLE`, `HASH` and `ROUTE` tables).
+
+**Deploying** (Lightsail box): `cd /opt/truffl-website && git pull && npm run build && pm2 restart truffl-website`.
 
 ## Required environment variables (set these in Vercel → Settings → Environment Variables)
 

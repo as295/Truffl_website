@@ -1,0 +1,70 @@
+
+/* One white ground; the opening artwork tapers out across the section boundary. */
+#v-home::before{display:none!important}
+#v-home{position:relative;isolation:isolate;background:#fff}
+#v-home #stage{position:relative;z-index:1;isolation:auto;overflow:visible;background:transparent;background-image:none;border:0;box-shadow:none;min-height:max(850px,100svh)}
+#v-home #stage::after{display:none}
+#v-home #stage .hero{padding-top:100px;padding-bottom:94px}
+#v-home #stage .hero h1{font-size:var(--t-display);letter-spacing:-.02em;line-height:1.06;max-width:19ch;color:var(--ink)}
+#v-home #stage .hero h1 em{color:var(--signal)}
+#v-home #stage .thesis{color:var(--graphite);max-width:56ch}
+#v-home #stage .site-head .mark svg>g{fill:var(--ink)}
+#v-home #stage .site-head nav,#v-home #stage .navsol-t{color:var(--ink)}
+#v-home #stage .site-head .actions .talk{color:var(--graphite)}
+#v-home #stage .site-head .actions .login{background:var(--ink);border-color:var(--ink);color:var(--paper);border-radius:2px}
+#v-home #stage .btn-solid{background:var(--ink);border-color:var(--ink);color:var(--paper);box-shadow:none}
+#v-home #stage .btn-solid:hover{background:var(--signal);border-color:var(--signal);box-shadow:none}
+#v-home #stage .btn-ghost{background:#fff;color:var(--ink);border-color:var(--hairline)}
+#v-home #stage .btn-solid,#v-home #stage .btn-ghost{border-radius:2px;letter-spacing:.08em}
+#v-home #stage #herocard .card{border-radius:2px;background:var(--paper);color:var(--ink);border-color:var(--hairline);box-shadow:none}
+#v-home #stage #herocard .chip{border-radius:2px;border-color:var(--hairline);background:transparent;color:var(--ink)}
+#v-home #stage #herocard .chip[aria-pressed=true]{background:var(--signal);border-color:var(--signal);color:#fff}
+#v-home #stage #herocard .card .agent{border-radius:2px;border-color:var(--hairline);color:var(--graphite)}
+#v-home #stage #herocard .card .agent i{color:var(--graphite)}
+#v-home #stage #herocard .card .play{color:var(--signal);border-color:var(--hairline);background:transparent}
+#v-home #stack,#v-home #k2c.developers-section,#v-home #k0c.production-section{background:transparent!important;border:0!important;box-shadow:none!important}
+#v-home #k2c.developers-section{padding-top:40px;padding-bottom:94px}
+#v-home #k2c>.dev-inner:first-child{max-width:1320px}
+#v-home #k2c .dev-inner{max-width:1320px}
+#v-home #k2c h2{color:var(--ink);font-size:clamp(36px,4.7vw,64px)}
+#v-home #k2c .dev-label{color:var(--deep);border:0;padding:0;letter-spacing:.08em;text-transform:uppercase;font-size:14px}
+#v-home #k2c .dev-layout{gap:42px;grid-template-columns:190px minmax(0,1fr)}
+#v-home #k2c .dev-nav{background:transparent;border:0}
+#v-home #k2c .dev-nav a{background:transparent;color:var(--graphite);border-bottom:1px solid var(--hairline);font-size:14px}
+#v-home #k2c .dev-nav a[aria-current=step]{color:var(--signal);background:linear-gradient(90deg,var(--pale),#ffffff00);box-shadow:inset 2px 0 var(--signal)}
+#v-home #k2c .dev-panels{gap:66px}
+#v-home #k2c .dev-panel{border:0;background:transparent;overflow:visible;min-height:430px}
+#v-home #k2c .dev-stage{background:transparent!important;border:0;overflow:visible;padding:32px 20px}
+#v-home #k2c .dev-console{background:var(--paper);border-color:var(--hairline);box-shadow:0 18px 45px -32px #15151535}
+#v-home #k2c .dev-console-bar{color:var(--graphite);border-color:var(--hairline)}
+#v-home #k2c .dev-console-bar i{box-shadow:10px 0 var(--deep),20px 0 var(--pale)}
+#v-home #k2c .dev-panel-copy{background:transparent;padding:32px 22px}
+#v-home #k2c .dev-panel-copy h3,#v-home #k2c .dev-closing h3{color:var(--ink)}
+#v-home #k2c .dev-card-copy,#v-home #k2c .dev-card-copy p{color:var(--graphite)}
+#v-home #k0c .feature-stage{background:linear-gradient(135deg,#ffffff00,var(--pale))!important}
+#v-home #k0c .feature-window{background:var(--paper);border-color:var(--hairline)}
+#v-home #k0c .feature-window-bar i{box-shadow:10px 0 var(--deep),20px 0 var(--pale)}
+#v-home #k0c .production-card{border-color:var(--hairline);color:var(--ink)}
+#v-home #connect,#v-home #faq{background:transparent!important;box-shadow:none;border-top:0}
+#v-home .global-footer{background:#fff}
+@media(max-width:1000px){
+ #v-home #stage .hero h1{font-size:clamp(44px,6vw,60px);max-width:19ch}
+ #v-home #k2c .dev-layout{grid-template-columns:1fr;gap:20px}
+ #v-home #k2c .dev-nav{position:relative;top:auto;display:flex;flex-wrap:wrap}
+ #v-home #k2c .dev-nav a{flex:1;padding:14px 10px}
+}
+@media(max-width:620px){
+ #v-home #stage{min-height:900px}
+ #v-home #stage .hero{padding-top:98px;padding-bottom:88px}
+ #v-home #stage .hero h1{font-size:clamp(40px,10.5vw,54px);max-width:16ch}
+ #v-home #k2c.developers-section{padding:40px 0 70px}
+ #v-home #k2c .dev-panel{min-height:0;grid-template-columns:1fr}
+ #v-home #k2c .dev-stage{padding:24px 0;min-height:280px}
+ #v-home #k2c .dev-panel-copy{padding:26px 0}
+ #v-home #k2c .dev-nav a{flex:1 1 30%;font-size:14px}
+ #v-home #k2c .dev-panels{gap:36px}
+}
+
+#v-home #k2c>.dev-inner:first-child{text-align:center}
+#v-home #k2c>.dev-inner:first-child h2{margin-inline:auto}
+

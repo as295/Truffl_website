@@ -1,0 +1,38 @@
+
+#v-home #faq{background:#fff!important}
+#v-home #faq .faq-wrap{max-width:1320px;display:grid;grid-template-columns:minmax(250px,.78fr) minmax(0,1.4fr);gap:clamp(40px,7vw,100px);padding:clamp(80px,9vw,128px) var(--pad-x) clamp(90px,10vw,140px);align-items:start}
+#v-home #faq .faq-intro{position:sticky;top:44px;padding-top:18px}
+#v-home #faq .faq-intro-icon{width:44px;height:44px;border-radius:10px;background:#3b66d6;display:grid;place-items:center;margin-bottom:26px}.faq-intro-icon svg{width:26px;height:26px}
+#v-home #faq .faq-intro h2{font-size:clamp(36px,3.7vw,50px);font-weight:500;line-height:1.1;letter-spacing:-1.7px;color:#153471;margin:0;max-width:13ch}
+#v-home #faq .faq-list{border:0;margin:0;padding:0;display:grid;gap:12px}
+#v-home #faq .faq-list li{border:0;border-radius:18px;padding:0 24px;transition:background .3s}
+#v-home #faq .faq-list li.open{background:#F0F4FF}
+#v-home #faq .faq-list button{position:relative;justify-content:flex-start;align-items:flex-start;padding:25px 0;gap:18px;font-size:19px;line-height:1.4;font-weight:500;color:#153471;min-height:84px}
+#v-home #faq .faq-list button>span{padding-top:3px}
+#v-home #faq .faq-list button i{order:-1;flex:0 0 32px;width:32px;height:32px;border-radius:7px;background:#3b66d6;margin:0;transition:background .25s}
+#v-home #faq .faq-list button i::before{left:9px;top:15px;width:14px;height:2px;background:white}
+#v-home #faq .faq-list button i::after{left:15px;top:9px;width:2px;height:14px;background:white}
+#v-home #faq .faq-list button[aria-expanded="true"] i{background:white}
+#v-home #faq .faq-list button[aria-expanded="true"] i::before{background:#3b66d6;transform:rotate(45deg)}
+#v-home #faq .faq-list button[aria-expanded="true"] i::after{background:#3b66d6;transform:rotate(45deg)}
+#v-home #faq .faq-list button:focus-visible{outline:2px solid #3b66d6;outline-offset:6px;border-radius:7px}
+#v-home #faq .faq-a{padding-left:50px;visibility:hidden;transition:grid-template-rows .34s,visibility .34s}
+#v-home #faq li.open .faq-a{visibility:visible}
+#v-home #faq .faq-a p{font-family:var(--font);font-size:17px;line-height:1.65;color:#536887;max-width:none}
+#v-home #faq .faq-list li.open .faq-a>div{padding-bottom:28px}
+#v-home #close{background:#F3F6FF!important;isolation:isolate}
+#v-home #close .cl-wrap{max-width:1320px;min-height:550px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:110px var(--pad-x) 120px;text-align:left;pointer-events:none}
+#v-home #close h2{font-size:clamp(34px,4.5vw,64px);font-weight:500;line-height:1.12;letter-spacing:-2px;margin:0 0 36px;text-wrap:initial;color:#153471;max-width:76%;pointer-events:auto}
+#v-home #close h2 em{color:#3b66d6}
+#v-home #close .ctas{justify-content:flex-start;gap:14px;pointer-events:auto}
+#v-home #close .btn-solid{background:#3b66d6;color:#fff;border-color:#3b66d6;border-radius:8px}
+#v-home #close .btn-ghost{background:transparent;color:#153471;border-color:transparent;border-radius:8px}
+#v-home #close .btn-ghost::after{content:' →';margin-left:9px}
+#v-home #close .btn:hover{transform:translateY(-2px)}
+.closing-art{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}.closing-art>svg{display:block;width:100%;height:100%}.closing-ribbon{transform-origin:1150px 250px;animation:truffl-closing-drift 18s ease-in-out infinite;animation-play-state:paused}
+@keyframes truffl-closing-drift{0%,100%{transform:translate(0,-7px) rotate(-1deg)}50%{transform:translate(9px,10px) rotate(1deg)}}
+#closing-motion-toggle{position:absolute;right:24px;bottom:24px;z-index:3;width:30px;height:30px;min-height:0;display:grid;place-items:center;padding:5px;border:1px solid #B5C8FF;border-radius:50%;background:#fff;color:#3b66d6;cursor:pointer}#closing-motion-toggle svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#v-home #close + .global-footer{background:#F3F6FF!important;border-top:0}
+@media(max-width:900px){#v-home #faq .faq-wrap{grid-template-columns:minmax(190px,.7fr) minmax(0,1.3fr);gap:26px}#v-home #faq .faq-list li{padding:0 18px}#v-home #faq .faq-list button{font-size:17px;gap:14px}#v-home #faq .faq-a{padding-left:46px}#v-home #close h2{font-size:clamp(32px,4.5vw,45px);letter-spacing:-1.3px}#v-home #close .cl-wrap{min-height:450px;padding-block:90px}}
+@media(max-width:620px){#v-home #faq .faq-wrap{grid-template-columns:1fr;gap:36px;padding-top:70px;padding-bottom:76px}#v-home #faq .faq-intro{position:static;padding:0}#v-home #faq .faq-intro h2{font-size:36px;max-width:none;letter-spacing:-1px}#v-home #faq .faq-intro-icon{margin-bottom:20px}#v-home #faq .faq-list li{padding:0 16px}#v-home #faq .faq-list button{font-size:17px;padding:22px 0;gap:12px}#v-home #faq .faq-a{padding-left:0}#v-home #faq .faq-a p{font-size:16px}#v-home #close .cl-wrap{min-height:560px;padding:65px var(--pad-x) 265px;justify-content:flex-start}#v-home #close h2{font-size:clamp(28px,7.5vw,40px);max-width:100%;letter-spacing:-1px;margin-bottom:28px}#v-home #close .btn{padding:13px 18px;font-size:12px;min-height:46px}.closing-art{top:auto;left:0;right:-20px;bottom:0;height:300px}.closing-art>svg{width:160%;margin-left:-60%}#closing-motion-toggle{bottom:18px;right:18px}}
+@media(prefers-reduced-motion:reduce){.closing-ribbon{animation:none}#v-home #faq .faq-a,#v-home #faq .faq-list li{transition:none}}

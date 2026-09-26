@@ -1,0 +1,10 @@
+
+#v-home #connect{background:linear-gradient(180deg,#fff 0%,#f2f5ff 25%,#f2f5ff 78%,#fff 100%)!important}
+#v-home #connect .cn-left h2{color:#172b61}
+#v-home #connect .cn-left p{color:#536489}
+#v-home #connect .cn-tile{background:#e2eaff;border:1px solid #c7d5ff;border-radius:12px;color:#3b66d6;box-shadow:inset 0 1px 0 #ffffff80;transition:background .25s,border-color .25s}
+#v-home #connect .cn-tile svg{color:var(--brand-color,#151515)}
+#v-home #connect .cn-tile:hover{background:#d6e1ff;border-color:#9bb4ff;color:#3b66d6}
+#v-home #connect .cn-tile:hover svg{color:var(--brand-color,#151515)}
+#v-home #connect .cn-left .btn{background:#3b66d6;border-color:#3b66d6;border-radius:7px;color:#fff}
+#v-home #connect .cn-left .btn:hover{background:#254cdf;border-color:#254cdf}

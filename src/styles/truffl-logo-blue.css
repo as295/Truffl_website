@@ -1,0 +1,25 @@
+
+:root{--signal:#3b66d6;--deep:var(--signal);--pale:color-mix(in srgb,var(--signal) 11%,white)}
+#v-home #signal-field{position:absolute;inset:0 auto auto 0;width:100%;height:var(--field-height,100svh);z-index:0;pointer-events:none;transform:none;opacity:1;mask-image:linear-gradient(to bottom,#000,#000 var(--field-fade-start,70%),transparent var(--field-clear-end,100%),transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000,#000 var(--field-fade-start,70%),transparent var(--field-clear-end,100%),transparent 100%)}
+#v-home #stage .site-head{background:#fff;width:calc(100% - 80px);max-width:1320px;margin:28px auto 0;border-radius:18px;height:86px;flex-basis:86px;padding-inline:28px;box-shadow:0 8px 30px #18309d0c}
+#v-home #stage .site-head .actions .login{background:var(--signal);border-color:var(--signal);color:#fff}
+#v-home #stage .site-head .actions .login:hover{background:#254cdf;border-color:#254cdf}
+#v-home #stage .hero h1,#v-home #stage .hero h1 em{color:#fff}
+#v-home #stage .thesis{color:#ffffffe6}
+#v-home #stage .btn-solid{background:#fff;border-color:#fff;color:var(--signal)}
+#v-home #stage .btn-solid:hover{background:#eaf0ff;border-color:#eaf0ff;color:var(--signal)}
+#v-home #stage .btn-ghost{color:#fff;border-color:#ffffff85;background:#3b66d660}
+#v-home #stage .btn-ghost:hover{background:#ffffff20;border-color:#fff}
+#v-home #stage .btn{border-radius:7px}
+#v-home #stage #herocard .card{border-radius:14px}
+@media(max-width:1000px){#v-home #stage .site-head{width:calc(100% - 40px);padding-inline:22px}}
+@media(max-width:620px){#v-home #stage .site-head{width:calc(100% - 28px);margin-top:14px;padding-inline:17px;height:76px;flex-basis:76px;border-radius:14px}#v-home #stage .hero{padding-top:84px}}
+#v-home #stage #herocard .card{background:#ffffffed;border-color:#3b66d629;box-shadow:0 12px 45px -24px #3b66d635}
+#v-home #stage #herocard .chip,#v-home #stage #herocard .card .agent{border-color:#3b66d626;background:#f8faff}
+#v-home #stage #herocard .chip[aria-pressed=true]{background:var(--signal);color:#fff;border-color:var(--signal)}
+#v-home #stage #herocard .card .play{background:#f0f4ff;border-color:#3b66d626}
+#v-home #k2c .dev-console,#v-home #k0c .feature-window{background:#f8faff;border-color:#3b66d626}
+#v-home #stage .motion-toggle{color:var(--signal)}
+#v-home #stage .motion-toggle:hover,#v-home #stage #herocard .chip:hover{background:color-mix(in srgb,var(--signal) 7%,white);color:var(--signal)}
+#v-home #k2c .dev-console-bar i,#v-home #k0c .feature-window-bar i{background:var(--signal);box-shadow:10px 0 var(--signal),20px 0 var(--signal)}
+#v-home #k2c .dev-node:not(.dev-node--primary),#v-home #k2c .dev-phase-list span:not(.dev-phase-active){color:var(--signal);border-color:color-mix(in srgb,var(--signal) 22%,white);background:color-mix(in srgb,var(--signal) 4%,white)}
