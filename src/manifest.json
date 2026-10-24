@@ -59,6 +59,14 @@
    "after": "\n"
   },
   {
+   "file": "pages/refunds.html",
+   "after": "\n"
+  },
+  {
+   "file": "pages/delivery.html",
+   "after": "\n"
+  },
+  {
    "file": "pages/pricing.html",
    "after": "\n"
   },

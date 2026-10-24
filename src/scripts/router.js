@@ -6,14 +6,14 @@
    document listener would ever run. So each link gets a direct listener,
    the view switch is pure DOM, and the URL update is best-effort. */
 (function(){
-  var V={evals:document.getElementById('v-evals'),appstudio:document.getElementById('v-appstudio'),notfound:document.getElementById('v-notfound'),unavailable:document.getElementById('v-unavailable'),privacy:document.getElementById('v-privacy'),terms:document.getElementById('v-terms'),cookies:document.getElementById('v-cookies'),pricing:document.getElementById('v-pricing'), platform:document.getElementById('v-platform'), home:document.getElementById('v-home'), rr:document.getElementById('v-rr'),
+  var V={evals:document.getElementById('v-evals'),appstudio:document.getElementById('v-appstudio'),notfound:document.getElementById('v-notfound'),unavailable:document.getElementById('v-unavailable'),privacy:document.getElementById('v-privacy'),terms:document.getElementById('v-terms'),cookies:document.getElementById('v-cookies'),refunds:document.getElementById('v-refunds'),delivery:document.getElementById('v-delivery'),pricing:document.getElementById('v-pricing'), platform:document.getElementById('v-platform'), home:document.getElementById('v-home'), rr:document.getElementById('v-rr'),
          cx:document.getElementById('v-cx'),
          ent:document.getElementById('v-ent'), vision:document.getElementById('v-vision'), trust:document.getElementById('v-trust')};
-  var TITLE={evals:'Evals Studio | Truffl',appstudio:'App Studio | Truffl',notfound:'Page not found | Truffl',unavailable:'Temporarily unavailable | Truffl',privacy:'Privacy Policy | Truffl',terms:'Terms of Service | Truffl',cookies:'Cookie Notice | Truffl',pricing:'Pricing calculator | Truffl', auth:'Login | Truffl', platform:'AI Orchestration Platform | Truffl', home:'Truffl', rr:'Revenue Recovery for D2C Commerce | Truffl',
+  var TITLE={evals:'Evals Studio | Truffl',appstudio:'App Studio | Truffl',notfound:'Page not found | Truffl',unavailable:'Temporarily unavailable | Truffl',privacy:'Privacy Policy | Truffl',terms:'Terms of Service | Truffl',cookies:'Cookie Notice | Truffl',refunds:'Refund & Cancellation Policy | Truffl',delivery:'Digital Delivery Policy | Truffl',pricing:'Pricing calculator | Truffl', auth:'Login | Truffl', platform:'AI Orchestration Platform | Truffl', home:'Truffl', rr:'Revenue Recovery for D2C Commerce | Truffl',
              cx:'Voice CX Support for Retail | Truffl', ent:'Enterprise | Truffl', vision:'Vision | Truffl', trust:'Trust & Security | Truffl'};
-  var HASH={evals:'#/platform/evals-studio',appstudio:'#/platform/app-studio',privacy:'#/privacy',terms:'#/terms',cookies:'#/cookies',pricing:'#/pricing',platform:'#/platform/voice-ai-studio', home:'#/', rr:'#/solutions/revenue-recovery',
+  var HASH={evals:'#/platform/evals-studio',appstudio:'#/platform/app-studio',privacy:'#/privacy',terms:'#/terms',cookies:'#/cookies',refunds:'#/refund-policy',delivery:'#/delivery-policy',pricing:'#/pricing',platform:'#/platform/voice-ai-studio', home:'#/', rr:'#/solutions/revenue-recovery',
             cx:'#/solutions/cx-support', ent:'#/enterprise', vision:'#/vision', trust:'#/trust'};
-  var ROUTE={'#/platform/evals-studio':'evals','#/platform/app-studio':'appstudio','#/service-unavailable':'unavailable','#/privacy':'privacy','#/terms':'terms','#/cookies':'cookies','#/pricing':'pricing','#/platform/voice-ai-studio':'platform','#/vision':'vision','#/trust':'trust','':'home','#':'home','#/':'home',
+  var ROUTE={'#/platform/evals-studio':'evals','#/platform/app-studio':'appstudio','#/service-unavailable':'unavailable','#/privacy':'privacy','#/terms':'terms','#/cookies':'cookies','#/refund-policy':'refunds','#/delivery-policy':'delivery','#/pricing':'pricing','#/platform/voice-ai-studio':'platform','#/vision':'vision','#/trust':'trust','':'home','#':'home','#/':'home',
              '#/solutions/revenue-recovery':'rr',
              '#/solutions/cx-support':'cx','#/enterprise':'ent'};
 
@@ -71,6 +71,8 @@
     if(h==='/privacy') return 'privacy';
     if(h==='/terms') return 'terms';
     if(h==='/cookies') return 'cookies';
+    if(h==='/refund-policy') return 'refunds';
+    if(h==='/delivery-policy') return 'delivery';
     if(h==='/pricing') return 'pricing';
     if(h==='/enterprise') return 'ent';
     if(h==='/platform/voice-ai-studio') return 'platform';
@@ -82,7 +84,7 @@
      swallowed on click only (preventDefault on touchstart would block the
      scroll). Nothing here changes how the links look; delete a path from
      BUILT as each page lands. */
-  var BUILT={'/privacy':1,'/terms':1,'/cookies':1,'/pricing':1,'/platform/voice-ai-studio':1,'/':1,'/solutions/revenue-recovery':1,
+  var BUILT={'/privacy':1,'/terms':1,'/cookies':1,'/refund-policy':1,'/delivery-policy':1,'/pricing':1,'/platform/voice-ai-studio':1,'/':1,'/solutions/revenue-recovery':1,
              '/solutions/cx-support':1,'/enterprise':1};
   function unbuilt(e){
     var authLink=e.target && e.target.closest && e.target.closest('a[href]');
