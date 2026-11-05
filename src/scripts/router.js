@@ -33,6 +33,7 @@
     for(var k in V) V[k].classList.toggle('on', k===name);
     document.body.setAttribute('data-view', name);
     try{ document.title=TITLE[name]; }catch(e){}
+    window.dispatchEvent(new CustomEvent('truffl:view', {detail:{name:name}}));
     try{ window.scrollTo(0,0); }catch(e){}
     paint();
   }

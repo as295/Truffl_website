@@ -9,6 +9,7 @@ const INVENTORY = [
   { id: 'necessary', provider: 'Truffl', name: 'truffl_privacy_choice', purpose: 'Remembers your cookie choices so we do not ask again.', duration: '12 months', party: 'First party' },
   { id: 'necessary', provider: 'Truffl', name: 'truffl_request_receipt', purpose: 'Lets a confirmation screen reappear if you reload the page.', duration: 'Session', party: 'First party' },
   { id: 'functional', provider: 'Calendly', name: 'Calendly scheduling embed', purpose: 'Loads the embedded calendar so you can pick a meeting time.', duration: 'Set by Calendly', party: 'Third party', detailsUrl: 'https://calendly.com/legal/cookie-policy' },
+  { id: 'analytics', provider: 'Google Analytics', name: 'Website analytics', purpose: 'Measures site visits and enquiry activity when analytics is permitted.', duration: 'Set by Google', party: 'Third party', detailsUrl: 'https://policies.google.com/technologies/partner-sites' },
 ];
 
 module.exports = (req, res) => {
@@ -17,5 +18,6 @@ module.exports = (req, res) => {
     policyVersion: '2026-09-01',
     inventory: INVENTORY,
     booking: booking() || { url: null, companyQuestion: null },
+    analytics: { measurementId: /^G-[A-Z0-9]+$/.test(process.env.GA_MEASUREMENT_ID || 'G-0CTEJN2135') ? (process.env.GA_MEASUREMENT_ID || 'G-0CTEJN2135') : null },
   });
 };

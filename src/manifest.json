@@ -137,6 +137,12 @@
    "after": "\n"
   },
   {
+   "file": "scripts/website-analytics.js",
+   "open": "<script>",
+   "close": "</script>",
+   "after": "\n"
+  },
+  {
    "file": "scripts/auth-and-consent.js",
    "open": "<script>",
    "close": "</script>",

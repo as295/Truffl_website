@@ -1,0 +1,3 @@
+const test=require('node:test');const assert=require('node:assert/strict');const path=require('node:path');
+const file=path.join(__dirname,'../api/_config.js');function config(value){if(value===null)delete process.env.CALENDLY_EVENT_URL;else process.env.CALENDLY_EVENT_URL=value;delete require.cache[require.resolve(file)];return require(file).booking()}
+test('replaces only the known inactive consultation link',()=>{assert.deepEqual(config('https://calendly.com/as-trufflinnovations/truffl-consultation'),{url:'https://calendly.com/as-trufflinnovations/truffl',companyQuestion:null});assert.equal(config('https://calendly.com/other/event').url,'https://calendly.com/other/event');assert.equal(config(null),null)});

@@ -42,6 +42,7 @@ module.exports = async (req, res) => {
     stored = false;
     console.error('[api/requests] could not persist submission', err.message);
   }
+  if (!stored) return res.status(503).json({ message: 'Request could not be saved. Please try again or email us.' });
 
   const rows = Object.entries(record.fields)
     .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#5B5B5B">${escapeHtml(k)}</td><td style="padding:4px 0">${escapeHtml(typeof v === 'object' ? JSON.stringify(v) : v)}</td></tr>`)
