@@ -55,8 +55,9 @@ module.exports = async (req, res) => {
   const invitee = p.name || p.email || 'someone';
   const startsAt = p.scheduled_event?.start_time || '';
   const eventName = p.scheduled_event?.name || 'a meeting';
+  // This subscription covers the account; notify only for Truffl's demo event.
+  if (eventName !== 'Truffl') return res.status(200).json({ ok: true, ignored: true });
   const when = startsAt ? new Date(startsAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'short' }) : 'time unknown';
-  const answers = (p.questions_and_answers || []).map((q) => `${q.question}: ${q.answer}`).join('\n');
 
   // Persist before notifying: a booking is a record, not just a message.
   const bookingId = (p.uri || p.scheduled_event?.uri || '').split('/').filter(Boolean).pop() || `cal-${Date.now()}`;
@@ -75,17 +76,18 @@ module.exports = async (req, res) => {
     });
   } catch (err) {
     console.error('[api/calendly] could not persist booking', err.message);
+    return res.status(503).json({ message: 'Booking could not be saved' });
   }
 
   if (event === 'invitee.created') {
-    await notifySlack(`:calendar: *Meeting booked* — ${invitee} (${p.email || 'no email'})\n*${eventName}* · ${when} IST${answers ? `\n${answers}` : ''}`);
+    await notifySlack(`:calendar: *Meeting booked* — ${invitee} (${p.email || 'no email'})\n*${eventName}* · ${when} IST`);
     await sendEmail({
       to: NOTIFY_TO,
       subject: `Booked: ${eventName} with ${invitee}`,
-      html: `<p><strong>${esc(invitee)}</strong> (${esc(p.email)}) booked <strong>${esc(eventName)}</strong>.</p><p>${esc(when)} IST</p>${answers ? `<pre>${esc(answers)}</pre>` : ''}<p style="color:#999;font-size:12px">Calendly has added this to the connected Google Calendar.</p>`,
+      html: `<p><strong>${esc(invitee)}</strong> (${esc(p.email)}) booked <strong>${esc(eventName)}</strong>.</p><p>${esc(when)} IST</p><p style="color:#999;font-size:12px">Calendly has added this to the connected Google Calendar.</p>`,
     });
   } else if (event === 'invitee.canceled') {
-    await notifySlack(`:x: *Meeting cancelled* — ${invitee} (${p.email || 'no email'})\n*${eventName}* · was ${when} IST${p.cancellation?.reason ? `\nReason: ${p.cancellation.reason}` : ''}`);
+    await notifySlack(`:x: *Meeting cancelled* — ${invitee} (${p.email || 'no email'})\n*${eventName}* · was ${when} IST`);
   } else {
     console.log('[api/calendly] ignoring event', event);
   }
