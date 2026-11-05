@@ -14,8 +14,13 @@ module.exports = {
   // https://calendly.com/truffl/30min . Until it is set the booking step shows
   // its own "email us instead" fallback rather than throwing.
   booking: () => {
-    const url = process.env.CALENDLY_EVENT_URL || null;
+    let url = process.env.CALENDLY_EVENT_URL || null;
     if (!url) return null;
+    // The former consultation event is inactive on the current Calendly plan.
+    // Preserve other configured event URLs and use the verified active event here.
+    if (url.replace(/\/+$/, '') === 'https://calendly.com/as-trufflinnovations/truffl-consultation') {
+      return { url: 'https://calendly.com/as-trufflinnovations/truffl', companyQuestion: null };
+    }
     return { url, companyQuestion: process.env.CALENDLY_COMPANY_QUESTION || 'a1' };
   },
 };
